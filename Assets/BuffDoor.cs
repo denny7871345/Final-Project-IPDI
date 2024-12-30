@@ -10,11 +10,12 @@ public class BuffDoor : Breakable
 
     private float damageCount = 0;
 
-   
+    public List<string> buffList;
 
     private void Start()
     {
         objName = "BuffDoor";
+        buffName = RandomBuff();
         health = 1;
         healthBar.text = buffName + ValueText();
         transform.position = model.transform.position;
@@ -92,4 +93,10 @@ public class BuffDoor : Breakable
         }
     }
 
+    private string RandomBuff()
+    {
+        int randomIndex = Random.Range(0, buffList.Count);
+        string name = buffList[randomIndex];
+        return name;
+    }
 }

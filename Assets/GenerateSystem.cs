@@ -57,9 +57,6 @@ public class GenerateSystem : MonoBehaviour
     private Transform RandomSide()
     {
         int randomIndex = Random.Range(0, positions.Count);
-
-
-        Debug.Log(randomIndex);
         Transform selectedPosition = positions[randomIndex];    
         return selectedPosition;
     }

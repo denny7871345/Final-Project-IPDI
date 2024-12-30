@@ -6,9 +6,13 @@ public class Treasure : Breakable
 {
     [SerializeField]
     public string buffName = "Unknow";
+
+    public List<string> buffList;
+
     private void Start()
     {
-        objName = "BuffDoor";
+        buffName = RandomBuff();
+        objName = "Treasure";
         health = 1;
         healthBar.text = buffName + ValueText();
         transform.position = model.transform.position;
@@ -74,6 +78,13 @@ public class Treasure : Breakable
             Destroy(collider);
         }
         Invoke("DestroyObject", 2f);
+    }
+
+    private string RandomBuff()
+    {
+        int randomIndex = Random.Range(0, buffList.Count);
+        string name = buffList[randomIndex];
+        return name;
     }
 
 }

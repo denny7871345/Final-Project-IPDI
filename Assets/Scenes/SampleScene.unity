@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 993670254}
   generateSystem: {fileID: 637876653}
-  waveRate: 5
+  waveRate: 4
   wave: 0
   state: 0
 --- !u!114 &637876652

@@ -14,8 +14,6 @@ public class Buff : MonoBehaviour
 
     private void Start()
     {
-        leftRigid = leftBuff.GetComponent<Collider>();
-        rightRigid = rightBuff.GetComponent<Collider>();
 
         if(leftRigid == null)
         {

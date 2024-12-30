@@ -107,6 +107,12 @@ MonoBehaviour:
   healthBar: {fileID: 4079812993211757826}
   state: 0
   buffName: Unknow
+  buffList:
+  - fire rate
+  - bullet count
+  - bullet speed
+  - bullet damage
+  - bullet life
 --- !u!65 &7299558421942590836
 BoxCollider:
   m_ObjectHideFlags: 0
