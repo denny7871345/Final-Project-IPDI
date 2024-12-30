@@ -123,14 +123,11 @@ MonoBehaviour:
   model: {fileID: 1712817400518872007}
   objName: 
   health: 100
-  speed: 0.01
+  speed: 0.02
   healthBarPrefab: {fileID: 1069954615318022283}
   healthBar: {fileID: 3290483979868379658}
   state: 0
   buffName: bullet count
-  spriteRenderer: {fileID: 0}
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineThickness: 0.1
 --- !u!54 &3959981244511256817
 Rigidbody:
   m_ObjectHideFlags: 0

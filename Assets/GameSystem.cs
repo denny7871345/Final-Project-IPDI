@@ -14,7 +14,7 @@ public class GameSystem : MonoBehaviour
         END
     }
     public GameObject button;
-    
+    public GenerateSystem generateSystem;
 
     public float waveRate = 5f;
     [SerializeField]
@@ -57,7 +57,8 @@ public class GameSystem : MonoBehaviour
                 waveTimer += Time.deltaTime;
                 if(waveTimer >= waveRate)
                 {
-
+                    wave++;
+                    generateSystem.WaveGeneration(wave);
                     waveTimer = 0f;
                 }
 
