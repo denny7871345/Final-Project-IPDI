@@ -1,0 +1,99 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
+public class GameSystem : MonoBehaviour
+{
+    enum STATE
+    {
+        IDEL,
+        PROCESS,
+        FINAL_BATTLE,
+        END
+    }
+    public GameObject button;
+    
+
+    public float waveRate = 5f;
+    [SerializeField]
+    private int wave;
+    private float waveTimer = 0f;       // ­p®É¾¹
+    [SerializeField]
+    private STATE state;
+    private Canvas canvas;
+    private bool triggerEnter;
+
+
+    private void Start()
+    {
+        wave = 0;
+        state = STATE.IDEL;
+        canvas = GetComponentInChildren<Canvas>();
+    }
+
+    private void Update()
+    {
+        switch (state)
+        {
+            case STATE.IDEL:
+                if (triggerEnter)
+                {
+                    canvas.enabled = true;
+                    triggerEnter = false;
+                    button.SetActive(false);
+                    break;
+                }
+                
+                break;
+            case STATE.PROCESS:
+                if (triggerEnter)
+                {
+                    canvas.enabled = false;
+                    triggerEnter = false;
+                    break;
+                }
+                waveTimer += Time.deltaTime;
+                if(waveTimer >= waveRate)
+                {
+
+                    waveTimer = 0f;
+                }
+
+
+                break;
+            case STATE.FINAL_BATTLE:
+                if (triggerEnter)
+                {
+
+                    triggerEnter = false;
+                    break;
+                }
+                break;
+            case STATE.END:
+                if (triggerEnter)
+                {
+                    wave++;
+                    triggerEnter = false;
+                    break;
+                }
+                break;
+        }
+    }
+
+    public void Trigger()
+    {
+        GoToState(STATE.PROCESS);
+    }
+    private void GoToState(STATE targetState)
+    {
+        state = targetState;
+        triggerEnter = true;
+    }
+
+
+
+
+
+}
