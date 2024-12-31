@@ -95,7 +95,7 @@ public class BuffDoor : Breakable
             Destroy(collider);
         }
     }
-
+    //Damn
     private string RandomBuff()
     {
         int randomIndex = Random.Range(0, buffList.Count);
