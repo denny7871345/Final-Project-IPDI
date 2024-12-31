@@ -6,9 +6,8 @@ public class BuffDoor : Breakable
 {
     [SerializeField]
     public string buffName = "";
-    private float threshold = 30;
-
-    private float damageCount = 0;
+    //private float threshold = 30;
+    //private float damageCount = 0;
 
     public List<string> buffList;
 
