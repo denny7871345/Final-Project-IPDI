@@ -18,6 +18,7 @@ public class GenerateSystem : MonoBehaviour
     [Header("Nonster Settings")]
     public float baseHealth;
     public float growthRate;
+    public float bossHealth;
 
     private void Start()
     {
@@ -50,9 +51,9 @@ public class GenerateSystem : MonoBehaviour
     {
         if(wave %2 == 0)
         {
-            float monsterHealth = (float)(baseHealth + growthRate * (wave/2) + Math.Pow((double)(wave / 2), 1.5));
+            float monsterHealth = (float)(baseHealth + growthRate * (wave/2) + Math.Pow((double)(wave / 2), 1.5)) ;
             Minion token = minion.GetComponent<Minion>();
-            token.SetHealth(monsterHealth);
+            token.SetHealth((int)monsterHealth);
             Instantiate(token, RandomSide().position , Quaternion.identity);
         }
         else

@@ -70,7 +70,7 @@ public class GunController : MonoBehaviour
         switch (_buffName)
         {
             case "fire rate":
-                fireRate /= (1 + _value * 0.01f);
+                fireRate /= (1 + _value * 0.03f);
                 break;
             case "bullet count":
                 bulletCount +=  (int)_value;
