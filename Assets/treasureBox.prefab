@@ -109,7 +109,6 @@ MonoBehaviour:
   buffName: Unknow
   buffList:
   - fire rate
-  - bullet count
   - bullet speed
   - bullet damage
   - bullet life

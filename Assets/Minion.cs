@@ -49,8 +49,16 @@ public class Minion : Breakable
                 Vector3 forward = transform.position;
                 forward.z -= speed;
                 transform.position = forward;
+
+                if(transform.position.z < -7)
+                {
+                    Die();
+                }
+
                 //anim.SetBool("IsWalking",false);
                 break;
+
+
             case STATE.DIE:
                 if (triggerEnter)
                 {

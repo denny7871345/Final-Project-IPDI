@@ -13,7 +13,7 @@ public class Treasure : Breakable
     {
         buffName = RandomBuff();
         objName = "Treasure";
-        health = 1;
+        health = Random.Range(1, 5); ;
         healthBar.text = buffName + ValueText();
         transform.position = model.transform.position;
         healthBarPos = transform.position + transform.up * 2.0f;
@@ -77,7 +77,7 @@ public class Treasure : Breakable
         {
             Destroy(collider);
         }
-        Invoke("DestroyObject", 2f);
+        Destroy(gameObject);
     }
 
     private string RandomBuff()

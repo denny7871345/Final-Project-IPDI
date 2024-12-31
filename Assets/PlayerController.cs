@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour
         Die
     }
 
-    public float life = 10f;
+    public float health = 10f;
     public float velocity = 3.0f;
 
     public GameObject model;
@@ -27,16 +28,35 @@ public class PlayerController : MonoBehaviour
     private float range1;
 
     public GunController gunController; // 引用 GunController
+    public GameObject healthBarPrefab; // 血量條的 Prefab
+    [SerializeField]
+    private TextMeshProUGUI healthBar;
+    private Vector3 healthBarPos = Vector3.zero;
 
     private void Awake()
     {
         anim = model.GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        transform.position = model.transform.position;
+        healthBarPos = transform.position + transform.up * 2.0f;
+        healthBarPrefab.transform.position = healthBarPos;
 
+    }
 
     private void Update()   
     {
+        if (healthBarPrefab != null)
+        {
+            healthBarPos = transform.position + transform.up * 2.0f;
+            healthBar.text = health.ToString();
+            healthBar.transform.position = healthBarPos;
+            healthBarPrefab.transform.rotation = Camera.main.transform.rotation; // 朝向相機
+        }
+
+
         switch (state)
         {
             case STATE.IDLE:
@@ -129,8 +149,8 @@ public class PlayerController : MonoBehaviour
 
     private void TakeDamage(float _damage)
     {
-        life -= _damage;
-        if (life <= 0)
+        health -= _damage;
+        if (health <= 0)
         {
             GoToState(STATE.Die);
         }
@@ -149,7 +169,7 @@ public class PlayerController : MonoBehaviour
             if (enemy != null)
             {
                 TakeDamage(enemy.GetLife());
-                enemy.Die();
+                enemy.TakeDamage(health);
                 return; // 碰撞到目標後直接返回，避免執行後續代碼
             }
 

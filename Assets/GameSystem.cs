@@ -15,6 +15,7 @@ public class GameSystem : MonoBehaviour
     }
     public GameObject button;
     public GenerateSystem generateSystem;
+    public PlayerController player;
 
     public float waveRate = 5f;
     [SerializeField]
@@ -61,6 +62,10 @@ public class GameSystem : MonoBehaviour
                     generateSystem.WaveGeneration(wave);
                     waveTimer = 0f;
                 }
+                if( player.health <= 0)
+                {
+                    GoToState(STATE.END);
+                }
 
 
                 break;
@@ -75,10 +80,12 @@ public class GameSystem : MonoBehaviour
             case STATE.END:
                 if (triggerEnter)
                 {
-                    wave++;
+                    canvas.enabled = true;
+                    button.SetActive(true);
                     triggerEnter = false;
                     break;
                 }
+                
                 break;
         }
     }

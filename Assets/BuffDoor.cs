@@ -16,7 +16,7 @@ public class BuffDoor : Breakable
     {
         objName = "BuffDoor";
         buffName = RandomBuff();
-        health = 1;
+        health = Random.Range(1, 7); 
         healthBar.text = buffName + ValueText();
         transform.position = model.transform.position;
         healthBarPos = transform.position;
@@ -68,12 +68,7 @@ public class BuffDoor : Breakable
 
     public override void TakeDamage(float damage)
     {
-        damageCount += damage;
-        if(damageCount >= threshold)
-        {
-            health += 1;
-            damageCount -= threshold;
-        }
+        
     }
 
     public override void LeaveBuff()

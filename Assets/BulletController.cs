@@ -32,11 +32,16 @@ public class BulletController : MonoBehaviour
         }
         else
         {
-            //Debug.Log("進入觸發範圍的不是 Monster!");
+            
         }
 
         // 延遲銷毀子彈
-        Destroy(gameObject, 0.1f);
+        BuffDoor buffDoor = collision.gameObject.GetComponent<BuffDoor>();
+        if(buffDoor == null)
+        {
+            Destroy(gameObject, 0.1f);
+        }
+        
     }
 
     public void SetValue(float _speed, float _lifeTime, float _damage)
