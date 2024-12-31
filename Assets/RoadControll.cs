@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class RoadControll : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    List<RoadScroller> roadScrollers;
+
+    //.
+    public void RoadWork(bool _work)
     {
-        
+        Debug.Log($"Road is being work:{_work}");
+        foreach(RoadScroller token in roadScrollers)
+        {
+            token.Work(_work);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

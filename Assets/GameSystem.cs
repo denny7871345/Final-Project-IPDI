@@ -16,6 +16,7 @@ public class GameSystem : MonoBehaviour
     public GameObject button;
     public GenerateSystem generateSystem;
     public PlayerController player;
+    public RoadControll roadScroller;
 
     public float waveRate = 5f;
     [SerializeField]
@@ -80,6 +81,7 @@ public class GameSystem : MonoBehaviour
             case STATE.END:
                 if (triggerEnter)
                 {
+                    roadScroller.RoadWork(false);
                     canvas.enabled = true;
                     button.SetActive(true);
                     triggerEnter = false;
@@ -92,6 +94,7 @@ public class GameSystem : MonoBehaviour
 
     public void Trigger()
     {
+        roadScroller.RoadWork(true);
         GoToState(STATE.PROCESS);
     }
     private void GoToState(STATE targetState)

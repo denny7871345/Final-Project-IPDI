@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject treasure;
 
     public UnityEvent<GameObject,Transform> GenerateThing;
-    public UnityEvent GameStart;
+    public UnityEvent<bool> GameStart;
 
     public Transform leftSide;
     public Transform rightSide;
@@ -79,7 +79,8 @@ public class GameManager : MonoBehaviour
         {
             if (hasntTrigger)
             {
-                GameStart?.Invoke();
+                GameStart?.Invoke(true);
+                hasntTrigger = false;
             }
         }
     }

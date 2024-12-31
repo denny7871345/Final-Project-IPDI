@@ -5,7 +5,7 @@ using UnityEngine;
 public class KeyboardInputManager : InputManager
 {
     private Vector3 axis;
-    private bool trigger;
+    private bool hasntTrigger = true;
     
     protected override void CalculateDpadAxis()
     {
@@ -30,8 +30,16 @@ public class KeyboardInputManager : InputManager
 
     protected override void CalculateTrigger()
     {
-        trigger = Input.GetKeyDown("space");
-        evtTrigger?.Invoke(trigger);
+        if(Input.GetKeyDown("space"))
+        {
+            if (hasntTrigger)
+            {
+                evtTrigger?.Invoke(true);
+                hasntTrigger = false;
+            }
+        }
+        
+       
     }
 
 }

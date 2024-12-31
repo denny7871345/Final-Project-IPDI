@@ -90,4 +90,10 @@ public class Minion : Breakable
             
         }
     }
+    //.
+    public void SetHealth(float value)
+    {
+        health = value;
+    }
+
 }

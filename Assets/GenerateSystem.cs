@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,11 @@ public class GenerateSystem : MonoBehaviour
     public Transform middle;
 
     public GameObject buff;
-    public GameObject Minion;
+    public GameObject minion;
+
+    [Header("Nonster Settings")]
+    public float baseHealth;
+    public float growthRate;
 
     private void Start()
     {
@@ -45,7 +50,10 @@ public class GenerateSystem : MonoBehaviour
     {
         if(wave %2 == 0)
         {
-            Instantiate(Minion, RandomSide().position , Quaternion.identity);
+            float monsterHealth = (float)(baseHealth + growthRate * (wave/2) + Math.Pow((double)(wave / 2), 1.5));
+            Minion token = minion.GetComponent<Minion>();
+            token.SetHealth(monsterHealth);
+            Instantiate(token, RandomSide().position , Quaternion.identity);
         }
         else
         {
@@ -56,7 +64,7 @@ public class GenerateSystem : MonoBehaviour
     //ÀH¾÷¥ª¥kÃä
     private Transform RandomSide()
     {
-        int randomIndex = Random.Range(0, positions.Count);
+        int randomIndex = UnityEngine.Random.Range(0, positions.Count);
         Transform selectedPosition = positions[randomIndex];    
         return selectedPosition;
     }
