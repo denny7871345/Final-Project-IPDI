@@ -88,6 +88,14 @@ public class BuffDoor : Breakable
         }
     }
 
+    public override void Die()
+    {
+        if (collider != null)
+        {
+            Destroy(collider);
+        }
+    }
+
     private string RandomBuff()
     {
         int randomIndex = Random.Range(0, buffList.Count);

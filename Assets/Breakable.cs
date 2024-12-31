@@ -75,5 +75,4 @@ public class Breakable : MonoBehaviour
         Destroy(gameObject);
         Debug.Log("物體已被銷毀");
     }
-
 }
