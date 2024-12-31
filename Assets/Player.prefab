@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1fba4bbe7563b49a5549f2dc37af8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
+  health: 10
   velocity: 0.01
   model: {fileID: 7839723133024648970}
   movingVec: {x: 0, y: 0, z: 0}
@@ -101,6 +101,8 @@ MonoBehaviour:
   range0: 3
   range1: -3
   gunController: {fileID: 2830275763409970120}
+  healthBarPrefab: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!114 &2830275763409970120
 MonoBehaviour:
   m_ObjectHideFlags: 0
