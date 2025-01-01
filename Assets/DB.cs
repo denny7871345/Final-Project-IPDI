@@ -3,13 +3,15 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 
-public class DatabaseManager
+public class DatabaseManager:MonoBehaviour
 {
     private string dbPath = Path.Combine(Application.dataPath, "GameData/userInfo.db");
 
-    public struct playerInfo
+    [SerializeField]
+    public PlayerInfo playerInfo;
+
+    public struct PlayerInfo
     {
-        public int id { get; set; }
 
         public int health { get; set; }
         public float fireRate { get; set; }
@@ -19,9 +21,8 @@ public class DatabaseManager
         public float bulletLifeTime { get; set; }    // 子彈速度
         public float bulletDamage { get; set; }    // 子彈傷害
 
-        public playerInfo(int id, int health, int bulletCount, float fireRate, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+        public PlayerInfo(int health, int bulletCount, float fireRate, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
         {
-            this.id = id;
             this.health = health;
             this.bulletCount = bulletCount;
             this.fireRate = fireRate;
@@ -65,12 +66,12 @@ public class DatabaseManager
             }
         }
     }
-    public void InsertData(int Health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+    public PlayerInfo InsertData(int Health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
     {
         if (!File.Exists(dbPath))
         {
             Debug.LogError("Database file not found");
-            return;
+            throw new FileNotFoundException($"Database file not found at path: {dbPath}");
         }
 
         string connectionString = $"Data Source={dbPath};Version=3;";
@@ -93,6 +94,9 @@ public class DatabaseManager
                 command.ExecuteNonQuery();
             }
         }
+        playerInfo = new PlayerInfo(Health, bulletCount, fireRate, spreadAngle, bulletSpeed, bulletLifeTime, bulletDamage);
+        return playerInfo;
+
     }
 
 
@@ -192,7 +196,7 @@ public class DatabaseManager
         }
     }
 
-    public playerInfo ReadSpecificData(int targetId)
+    public PlayerInfo ReadSpecificData(int targetId)
     {
         if (!File.Exists(dbPath))
         {
@@ -224,13 +228,16 @@ public class DatabaseManager
                         float bulletLifeTime = reader.GetFloat(6);
                         float bulletDamage = reader.GetFloat(7);
 
-                        playerInfo token = new playerInfo(id,health,bulletCount,fireRate,spreadAngle,bulletSpeed,bulletLifeTime,bulletDamage);
+                        playerInfo = new PlayerInfo(health,bulletCount,fireRate,spreadAngle,bulletSpeed,bulletLifeTime,bulletDamage);
                         Debug.Log($"ID: {id}, Fire Rate: {fireRate},bulletCount: {bulletCount},Spread Angle: {spreadAngle}, bulletSpeed: {bulletSpeed}, bulletLifeTime: {bulletLifeTime}, bulletDamage:{bulletDamage}");
-                        return token;
+
+                        return playerInfo;
                     }
                     else
                     {
-                        throw new FileNotFoundException($"No data found for ID: {targetId}");
+                        Debug.Log($"No data found for ID: {targetId}");
+                        playerInfo = InsertData(100,0.7f,1,5,3,2,10);
+                        return playerInfo;
                     }
                 }
             }

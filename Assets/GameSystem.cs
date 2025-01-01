@@ -17,6 +17,7 @@ public class GameSystem : MonoBehaviour
     public GenerateSystem generateSystem;
     public PlayerController player;
     public RoadControll roadScroller;
+    public DatabaseManager database;
 
     public float waveRate = 5f;
     [SerializeField]
@@ -33,8 +34,7 @@ public class GameSystem : MonoBehaviour
         wave = 0;
         state = STATE.IDEL;
         canvas = GetComponentInChildren<Canvas>();
-        DatabaseManager database = new DatabaseManager();
-        DatabaseManager.playerInfo token = database.ReadSpecificData(3);
+        DatabaseManager.PlayerInfo token = database.ReadSpecificData(1);
         player.PlayerSet(token);
     }
 

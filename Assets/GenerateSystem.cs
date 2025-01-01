@@ -14,12 +14,14 @@ public class GenerateSystem : MonoBehaviour
 
     public GameObject buff;
     public GameObject minion;
+    public GameObject boss;
 
     [Header("Nonster Settings")]
     public float baseHealth;
     public float growthRate;
     public float bossHealth;
-
+    public float bossRate;
+    private int bosslevel;
     private void Start()
     {
         positions.Add(left);
@@ -49,12 +51,17 @@ public class GenerateSystem : MonoBehaviour
     //¨Cªi¥Í¦¨§PÂ_
     public void WaveGeneration(int wave)
     {
+
         if(wave %2 == 0)
         {
             float monsterHealth = (float)(baseHealth + growthRate * (wave/2) + Math.Pow((double)(wave / 2), 1.5)) ;
             Minion token = minion.GetComponent<Minion>();
             token.SetHealth((int)monsterHealth);
             Instantiate(token, RandomSide().position , Quaternion.identity);
+            if (wave % 10 == 0 || wave == 4)
+            {
+                Invoke("BossGenrate", 1.5f);
+            }
         }
         else
         {
@@ -70,6 +77,13 @@ public class GenerateSystem : MonoBehaviour
         return selectedPosition;
     }
 
-
+    private void BossGenrate()
+    {
+        float monsterHealth = (float)(bossHealth + bossRate * bosslevel + Math.Pow((double)(bosslevel / 2), 1.5));
+        Boss token = boss.GetComponent<Boss>();
+        token.SetHealth((int)monsterHealth);
+        Instantiate(token,middle.position, Quaternion.identity);
+        bosslevel++;
+    }
 
 }

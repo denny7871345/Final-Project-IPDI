@@ -16,7 +16,7 @@ Material:
   - _METALLICGLOSSMAP
   - _NORMALMAP
   m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap: {}
@@ -103,7 +103,7 @@ Material:
     - _DstBlend: 0
     - _EmissionFactor: 1
     - _EmissiveFactor: 1
-    - _Glossiness: 0.9
+    - _Glossiness: 0
     - _Metallic: 1
     - _MetalnessFactor: 0
     - _Mode: 0

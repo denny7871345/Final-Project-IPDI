@@ -175,6 +175,16 @@ public class PlayerController : MonoBehaviour
                 return; // 碰撞到目標後直接返回，避免執行後續代碼
             }
 
+            Boss boss = gameObject.GetComponent<Boss>();
+            if (boss != null)
+            {
+                int damage = (int)boss.GetLife();
+                boss.TakeDamage(health);
+                TakeDamage(damage);
+
+                return; // 碰撞到目標後直接返回，避免執行後續代碼
+            }
+
             BuffDoor buff = gameObject.GetComponent<BuffDoor>();
             if (buff != null)
             {
@@ -195,7 +205,7 @@ public class PlayerController : MonoBehaviour
          //anim.SetBool("isGround", true);
      }
 
-    public void PlayerSet(DatabaseManager.playerInfo _playerInfo)
+    public void PlayerSet(DatabaseManager.PlayerInfo _playerInfo)
     {
         health = _playerInfo.health;
         gunController.spreadAngle = _playerInfo.spreadAngle;
