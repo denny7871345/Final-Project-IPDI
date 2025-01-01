@@ -670,7 +670,7 @@ MonoBehaviour:
   generateSystem: {fileID: 637876653}
   player: {fileID: 1822437772}
   roadScroller: {fileID: 637876654}
-  database: {fileID: 1704810610}
+  database: {fileID: 0}
   waveRate: 4
   wave: 0
   state: 0
@@ -1302,50 +1302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1edadf0f414904883ffb9842fee973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1704810609
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1704810611}
-  - component: {fileID: 1704810610}
-  m_Layer: 0
-  m_Name: DB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1704810610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704810609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 481834d408667184187c430b105a884f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1704810611
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704810609}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.99999994, z: -0.046867326}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1822437772 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1122437833603193379, guid: 646dc2fe1dc61d2409950c75ecc0ea9e, type: 3}
@@ -1915,5 +1871,4 @@ SceneRoots:
   - {fileID: 1548909475}
   - {fileID: 637876649}
   - {fileID: 578787859}
-  - {fileID: 1704810611}
   - {fileID: 2109073163}

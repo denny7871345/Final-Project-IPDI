@@ -31,11 +31,24 @@ public class GameSystem : MonoBehaviour
 
     private void Start()
     {
+        database = FindObjectOfType<DatabaseManager>();
+        if (database != null)
+        {
+            Debug.Log("Found DatabaseManager!");
+            // �o�̥i�H�ϥ� databaseManager ����ާ@
+        }
+        else
+        {
+            Debug.LogError("DatabaseManager not found!");
+        }
+
         wave = 0;
         state = STATE.IDEL;
         canvas = GetComponentInChildren<Canvas>();
         DatabaseManager.PlayerInfo token = database.ReadSpecificData(1);
         player.PlayerSet(token);
+        
+        player.PlayerSet(database.playerInfo);
     }
 
     private void Update()
