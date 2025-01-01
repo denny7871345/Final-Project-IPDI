@@ -94,8 +94,8 @@ public class DatabaseManager
         }
     }
 
-    
-    void UpdateData(float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+
+    void UpdateData(int id, int health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
     {
         if (!File.Exists(dbPath))
         {
@@ -108,10 +108,20 @@ public class DatabaseManager
         {
             connection.Open();
 
-            string query = "INSERT INTO player (Health, FireRate, BulletCount, SpreadAngle, BulletSpeed, BulletLifeTime, BulletDamage) " +
-                "VALUES (@Health, @FireRate, @BulletCount, @SpreadAngle, @BulletSpeed, @BulletLifeTime, @BulletDamage)";
+            string query = "UPDATE player SET " +
+                           "Health = @Health, " +
+                           "FireRate = @FireRate, " +
+                           "BulletCount = @BulletCount, " +
+                           "SpreadAngle = @SpreadAngle, " +
+                           "BulletSpeed = @BulletSpeed, " +
+                           "BulletLifeTime = @BulletLifeTime, " +
+                           "BulletDamage = @BulletDamage " +
+                           "WHERE ID = @ID;";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
+                // 添加參數
+                command.Parameters.AddWithValue("@ID", id);
+                command.Parameters.AddWithValue("@Health", health);
                 command.Parameters.AddWithValue("@FireRate", fireRate);
                 command.Parameters.AddWithValue("@BulletCount", bulletCount);
                 command.Parameters.AddWithValue("@SpreadAngle", spreadAngle);
@@ -119,10 +129,12 @@ public class DatabaseManager
                 command.Parameters.AddWithValue("@BulletLifeTime", bulletLifeTime);
                 command.Parameters.AddWithValue("@BulletDamage", bulletDamage);
 
+                // 執行命令
                 command.ExecuteNonQuery();
             }
         }
     }
+
 
     public playerInfo ReadSpecificData(int targetId)
     {
