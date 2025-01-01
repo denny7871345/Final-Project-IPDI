@@ -136,7 +136,10 @@ public class DatabaseManager
         }
     }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     public void UpdateData(int id ,string buffName,float value)
     {
         if (!File.Exists(dbPath))
