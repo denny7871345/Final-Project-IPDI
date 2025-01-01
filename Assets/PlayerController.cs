@@ -193,4 +193,15 @@ public class PlayerController : MonoBehaviour
          //anim.SetBool("isGround", true);
      }
 
+    public void PlayerSet(DatabaseManager.playerInfo _playerInfo)
+    {
+        health = _playerInfo.health;
+        gunController.spreadAngle = _playerInfo.spreadAngle;
+        gunController.bulletCount = _playerInfo.bulletCount;
+        gunController.bulletDamage = _playerInfo.bulletDamage;
+        gunController.bulletLifeTime = _playerInfo.bulletLifeTime;
+        gunController.bulletSpeed = _playerInfo.bulletSpeed;
+        gunController.fireRate = _playerInfo.fireRate;
+    }
+
 }
