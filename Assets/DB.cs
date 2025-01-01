@@ -136,7 +136,8 @@ public class DatabaseManager
         }
     }
 
-    public void UpdateData(string buffName,float value)
+
+    public void UpdateData(int id ,string buffName,float value)
     {
         if (!File.Exists(dbPath))
         {
