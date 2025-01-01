@@ -10,6 +10,11 @@ public class DatabaseManager:MonoBehaviour
     [SerializeField]
     public PlayerInfo playerInfo;
 
+    private void Awake()
+    {
+        // 確保物件在場景切換時不會被銷毀
+        DontDestroyOnLoad(gameObject);
+    }
     public struct PlayerInfo
     {
 
