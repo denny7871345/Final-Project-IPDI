@@ -3,23 +3,26 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 
-public class DatabaseManager : MonoBehaviour
+public class DatabaseManager
 {
-    private string dbPath;
+    private string dbPath = Path.Combine(Application.dataPath, "GameData/userInfo.db");
 
     public struct playerInfo
     {
-        int id { get; set; }
-        float fireRate { get; set; }
-        int bulletCount { get; set; }      // 每次開火的子彈數量
-        float spreadAngle { get; set; }  // 散射的總角度 (適用於多子彈情況)
-        float bulletSpeed { get; set; }    // 子彈速度
-        float bulletLifeTime { get; set; }    // 子彈速度
-        float bulletDamage { get; set; }    // 子彈傷害
+        public int id { get; set; }
 
-        public playerInfo(int id, int bulletCount, float fireRate, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+        public int health { get; set; }
+        public float fireRate { get; set; }
+        public int bulletCount { get; set; }      // 每次開火的子彈數量
+        public float spreadAngle { get; set; }  // 散射的總角度 (適用於多子彈情況)
+        public float bulletSpeed { get; set; }    // 子彈速度
+        public float bulletLifeTime { get; set; }    // 子彈速度
+        public float bulletDamage { get; set; }    // 子彈傷害
+
+        public playerInfo(int id, int health, int bulletCount, float fireRate, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
         {
             this.id = id;
+            this.health = health;
             this.bulletCount = bulletCount;
             this.fireRate = fireRate;
             this.spreadAngle = spreadAngle;
@@ -27,14 +30,6 @@ public class DatabaseManager : MonoBehaviour
             this.bulletLifeTime = bulletLifeTime;
             this.bulletDamage = bulletDamage;
         }
-    }
-
-    void Start()
-    {
-        dbPath = Path.Combine(Application.dataPath, "GameData/userInfo.db");
-        ReadSpecificData(1);
-        ReadSpecificData(2);
-        ReadSpecificData(5);
     }
 
     void ReadDatabase()
@@ -71,12 +66,12 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    public playerInfo? ReadSpecificData(int targetId)
+    public playerInfo ReadSpecificData(int targetId)
     {
         if (!File.Exists(dbPath))
         {
             Debug.LogError("Database file not found");
-            return null;
+            throw new FileNotFoundException($"Database file not found at path: {dbPath}");
         }
 
         string connectionString = $"Data Source={dbPath};Version=3;";
@@ -95,21 +90,21 @@ public class DatabaseManager : MonoBehaviour
                     if (reader.Read())
                     {
                         int id = reader.GetInt32(0);
-                        float fireRate = reader.GetFloat(1);
-                        int bulletCount = (int)reader.GetFloat(2);
-                        float spreadAngle = reader.GetFloat(3);
-                        float bulletSpeed = reader.GetFloat(4);
-                        float bulletLifeTime = reader.GetFloat(5);
-                        float bulletDamage = reader.GetFloat(6);
+                        int health = (int)reader.GetFloat(1);
+                        float fireRate = reader.GetFloat(2);
+                        int bulletCount = (int)reader.GetFloat(3);
+                        float spreadAngle = reader.GetFloat(4);
+                        float bulletSpeed = reader.GetFloat(5);
+                        float bulletLifeTime = reader.GetFloat(6);
+                        float bulletDamage = reader.GetFloat(7);
 
-                        playerInfo token = new playerInfo(id,bulletCount,fireRate,spreadAngle,bulletSpeed,bulletLifeTime,bulletDamage);
+                        playerInfo token = new playerInfo(id,health,bulletCount,fireRate,spreadAngle,bulletSpeed,bulletLifeTime,bulletDamage);
                         Debug.Log($"ID: {id}, Fire Rate: {fireRate},bulletCount: {bulletCount},Spread Angle: {spreadAngle}, bulletSpeed: {bulletSpeed}, bulletLifeTime: {bulletLifeTime}, bulletDamage:{bulletDamage}");
                         return token;
                     }
                     else
                     {
-                        Debug.LogWarning($"No data found for ID: {targetId}");
-                        return null;
+                        throw new FileNotFoundException($"No data found for ID: {targetId}");
                     }
                 }
             }

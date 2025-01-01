@@ -33,6 +33,9 @@ public class GameSystem : MonoBehaviour
         wave = 0;
         state = STATE.IDEL;
         canvas = GetComponentInChildren<Canvas>();
+        DatabaseManager database = new DatabaseManager();
+        DatabaseManager.playerInfo token = database.ReadSpecificData(3);
+        player.PlayerSet(token);
     }
 
     private void Update()
