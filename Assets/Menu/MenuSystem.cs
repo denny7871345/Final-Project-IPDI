@@ -17,6 +17,10 @@ public class MenuSystem : MonoBehaviour
     public Button storageNext;
     public Button[] storages;
 
+    public Button[] powerup;
+
+    public int[] powerUpTimes;
+
     public DatabaseManager database;
 
     public TextMeshProUGUI text;
@@ -42,6 +46,12 @@ public class MenuSystem : MonoBehaviour
         {
             int index = i; // 重要：捕獲當前迴圈的索引值
             storages[i].onClick.AddListener(() => ChooseThisStorage(index));
+        }
+
+        for (int i = 0; i < powerup.Length; i++)
+        {
+            int index = i; // 重要：捕獲當前迴圈的索引值
+            powerup[i].onClick.AddListener(() => AddPowerUp(index));
         }
 
         storageNext.enabled = false;
@@ -111,6 +121,11 @@ public class MenuSystem : MonoBehaviour
         currentStorage = 0;
         storageNext.enabled = false;
         text.text = "Select Your Storage";
+    }
+
+    private void AddPowerUp(int index)
+    {
+        powerUpTimes[index]++;
     }
 }
 
