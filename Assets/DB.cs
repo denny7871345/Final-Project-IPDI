@@ -9,13 +9,13 @@ public class DatabaseManager : MonoBehaviour
 
     public struct playerInfo
     {
-        int id;
-        float fireRate;
-        int bulletCount;       // 每次開火的子彈數量
-        float spreadAngle;   // 散射的總角度 (適用於多子彈情況)
-        float bulletSpeed;    // 子彈速度
-        float bulletLifeTime;    // 子彈速度
-        float bulletDamage;
+        int id { get; set; }
+        float fireRate { get; set; }
+        int bulletCount { get; set; }      // 每次開火的子彈數量
+        float spreadAngle { get; set; }  // 散射的總角度 (適用於多子彈情況)
+        float bulletSpeed { get; set; }    // 子彈速度
+        float bulletLifeTime { get; set; }    // 子彈速度
+        float bulletDamage { get; set; }    // 子彈傷害
 
         public playerInfo(int id, int bulletCount, float fireRate, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
         {
