@@ -35,7 +35,6 @@ public class GameSystem : MonoBehaviour
         canvas = GetComponentInChildren<Canvas>();
         DatabaseManager database = new DatabaseManager();
         DatabaseManager.playerInfo token = database.ReadSpecificData(3);
-        database.UpdateData(3,"health",2000);
         player.PlayerSet(token);
     }
 
