@@ -25,8 +25,8 @@ public class DatabaseManager:MonoBehaviour
         public float bulletSpeed { get; set; }    // 子彈速度
         public float bulletLifeTime { get; set; }    // 子彈速度
         public float bulletDamage { get; set; }    // 子彈傷害
-
-        public PlayerInfo(int health, int bulletCount, float fireRate, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+        public float skillPoint { get; set; }    // 技能點
+        public PlayerInfo(int health, int bulletCount, float fireRate, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage,int skillPoint)
         {
             this.health = health;
             this.bulletCount = bulletCount;
@@ -35,6 +35,7 @@ public class DatabaseManager:MonoBehaviour
             this.bulletSpeed = bulletSpeed;
             this.bulletLifeTime = bulletLifeTime;
             this.bulletDamage = bulletDamage;
+            this.skillPoint = skillPoint;
         }
     }
 
@@ -65,13 +66,14 @@ public class DatabaseManager:MonoBehaviour
                         float BulletSpeed = reader.GetFloat(3);
                         float BulletLifeTime = reader.GetFloat(4);
                         float BulletDamage = reader.GetFloat(5);
+                        int skillPoint = reader.GetInt32(6);
                         Debug.Log($"ID: {id}, fireRate: {fireRate}, SpreadAngle: {SpreadAngle}");
                     }
                 }
             }
         }
     }
-    public PlayerInfo InsertData(int Health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+    public PlayerInfo InsertData(int Health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage, int skillPoint)
     {
         if (!File.Exists(dbPath))
         {
@@ -84,8 +86,8 @@ public class DatabaseManager:MonoBehaviour
         {
             connection.Open();
 
-            string query = "INSERT INTO player (Health, FireRate, BulletCount, SpreadAngle, BulletSpeed, BulletLifeTime, BulletDamage) " + 
-                "VALUES (@Health, @FireRate, @BulletCount, @SpreadAngle, @BulletSpeed, @BulletLifeTime, @BulletDamage)";
+            string query = "INSERT INTO player (Health, FireRate, BulletCount, SpreadAngle, BulletSpeed, BulletLifeTime, BulletDamage, SkillPoint) " +
+                "VALUES (@Health, @FireRate, @BulletCount, @SpreadAngle, @BulletSpeed, @BulletLifeTime, @BulletDamage, @SkillPoint)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@Health", Health);
@@ -95,17 +97,18 @@ public class DatabaseManager:MonoBehaviour
                 command.Parameters.AddWithValue("@BulletSpeed", bulletSpeed);
                 command.Parameters.AddWithValue("@BulletLifeTime", bulletLifeTime);
                 command.Parameters.AddWithValue("@BulletDamage", bulletDamage);
+                command.Parameters.AddWithValue("@SkillPoint", skillPoint);
 
                 command.ExecuteNonQuery();
             }
         }
-        playerInfo = new PlayerInfo(Health, bulletCount, fireRate, spreadAngle, bulletSpeed, bulletLifeTime, bulletDamage);
+        playerInfo = new PlayerInfo(Health, bulletCount, fireRate, spreadAngle, bulletSpeed, bulletLifeTime, bulletDamage,skillPoint);
         return playerInfo;
 
     }
 
 
-    public void UpdateData(int id, int health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+    public void UpdateData(int id, int health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage, int skillPoint)
     {
         if (!File.Exists(dbPath))
         {
@@ -126,6 +129,7 @@ public class DatabaseManager:MonoBehaviour
                            "BulletSpeed = @BulletSpeed, " +
                            "BulletLifeTime = @BulletLifeTime, " +
                            "BulletDamage = @BulletDamage " +
+                           "SkillPoint = @SkillPoint " +
                            "WHERE ID = @ID;";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
@@ -138,6 +142,7 @@ public class DatabaseManager:MonoBehaviour
                 command.Parameters.AddWithValue("@BulletSpeed", bulletSpeed);
                 command.Parameters.AddWithValue("@BulletLifeTime", bulletLifeTime);
                 command.Parameters.AddWithValue("@BulletDamage", bulletDamage);
+                command.Parameters.AddWithValue("@SkillPoint", skillPoint);
 
                 // 執行命令
                 command.ExecuteNonQuery();
@@ -167,6 +172,7 @@ public class DatabaseManager:MonoBehaviour
                            "BulletSpeed = @BulletSpeed, " +
                            "BulletLifeTime = @BulletLifeTime, " +
                            "BulletDamage = @BulletDamage " +
+                           "SkillPoint = @SkillPoint " +
                            "WHERE ID = @ID;";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
@@ -194,6 +200,9 @@ public class DatabaseManager:MonoBehaviour
                     case "bullet damage":
                         command.Parameters.AddWithValue("@BulletDamage", value);
                         break;
+                    case "skillPoint":
+                        command.Parameters.AddWithValue("@SkillPoint", value);
+                        break;
                 }
                 // 執行命令
                 command.ExecuteNonQuery();
@@ -208,7 +217,8 @@ public class DatabaseManager:MonoBehaviour
                 $"Spread Angle: {playerInfo.spreadAngle},\n" +
                 $"Bullet Speed: {playerInfo.bulletSpeed},\n" +
                 $"Bullet Life Time: {playerInfo.bulletLifeTime},\n" +
-                $"Bullet Damage: {playerInfo.bulletDamage}";
+                $"Bullet Damage: {playerInfo.bulletDamage},\n"+
+                $"Skill Point: {playerInfo.skillPoint}";
         return (text);
     }
 
@@ -244,16 +254,16 @@ public class DatabaseManager:MonoBehaviour
                         float bulletSpeed = reader.GetFloat(5);
                         float bulletLifeTime = reader.GetFloat(6);
                         float bulletDamage = reader.GetFloat(7);
-
-                        playerInfo = new PlayerInfo(health,bulletCount,fireRate,spreadAngle,bulletSpeed,bulletLifeTime,bulletDamage);
-                        Debug.Log($"ID: {id}, Fire Rate: {fireRate},bulletCount: {bulletCount},Spread Angle: {spreadAngle}, bulletSpeed: {bulletSpeed}, bulletLifeTime: {bulletLifeTime}, bulletDamage:{bulletDamage}");
+                        int skillPoint = (int)reader.GetFloat(7);
+                        playerInfo = new PlayerInfo(health,bulletCount,fireRate,spreadAngle,bulletSpeed,bulletLifeTime,bulletDamage,skillPoint);
+                        Debug.Log($"ID: {id}, Fire Rate: {fireRate},bulletCount: {bulletCount},Spread Angle: {spreadAngle}, bulletSpeed: {bulletSpeed}, bulletLifeTime: {bulletLifeTime}, bulletDamage:{bulletDamage}, skillPoint:{skillPoint}");
 
                         return playerInfo;
                     }
                     else
                     {
                         Debug.Log($"No data found for ID: {targetId}");
-                        playerInfo = InsertData(100,0.7f,1,5,3,2,10);
+                        playerInfo = InsertData(100, 0.7f, 1, 5, 3, 2, 10, 0);
                         return playerInfo;
                     }
                 }
