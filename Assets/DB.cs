@@ -65,7 +65,7 @@ public class DatabaseManager
             }
         }
     }
-    void InsertData(float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+    void InsertData(int Health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
     {
         if (!File.Exists(dbPath))
         {
@@ -82,6 +82,7 @@ public class DatabaseManager
                 "VALUES (@Health, @FireRate, @BulletCount, @SpreadAngle, @BulletSpeed, @BulletLifeTime, @BulletDamage)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
+                command.Parameters.AddWithValue("@Health", Health);
                 command.Parameters.AddWithValue("@FireRate", fireRate);
                 command.Parameters.AddWithValue("@BulletCount", bulletCount);
                 command.Parameters.AddWithValue("@SpreadAngle", spreadAngle);
