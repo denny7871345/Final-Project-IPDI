@@ -32,7 +32,7 @@ public class DatabaseManager
         }
     }
 
-    void ReadDatabase()
+    public void ReadDatabase()
     {
         if (!File.Exists(dbPath))
         {
@@ -65,7 +65,7 @@ public class DatabaseManager
             }
         }
     }
-    void InsertData(int Health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+    public void InsertData(int Health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
     {
         if (!File.Exists(dbPath))
         {
@@ -96,7 +96,7 @@ public class DatabaseManager
     }
 
 
-    void UpdateData(int id, int health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+    public void UpdateData(int id, int health, float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
     {
         if (!File.Exists(dbPath))
         {
@@ -136,7 +136,7 @@ public class DatabaseManager
         }
     }
 
-    void UpdateData(string buffName,float value)
+    public void UpdateData(string buffName,float value)
     {
         if (!File.Exists(dbPath))
         {
