@@ -356,9 +356,10 @@ MonoBehaviour:
   middle: {fileID: 1906946496}
   buff: {fileID: 1325538197215052242, guid: 0d4db22d1e91f2c468aa4dc46a4d06f0, type: 3}
   minion: {fileID: 8864688702328623031, guid: 74b7a8f44f0341e4c86dc7dcd624c852, type: 3}
+  boss: {fileID: 6969941943200312861, guid: 4e084ef347ca2fe4d838823cf6780d5c, type: 3}
   baseHealth: 50
   growthRate: 15
-  bossHealth: 500
+  bossHealth: 150
   bossRate: 100
 --- !u!114 &637876654
 MonoBehaviour:
