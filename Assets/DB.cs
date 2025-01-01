@@ -1,28 +1,46 @@
-using MongoDB.Driver;
 using UnityEngine;
-using System.Collections.Generic;
-using MongoDB.Bson;
+using System.Data;
+using System.Data.SQLite;
+using System.IO;
 
-public class DB : MonoBehaviour
+public class DatabaseManager : MonoBehaviour
 {
-    private MongoClient client;
-    private IMongoDatabase database;
-    private IMongoCollection<BsonDocument> collection;
+    private string dbPath;
 
     void Start()
     {
-        client = new MongoClient("mongodb://localhost:27017/GameApp");
-        database = client.GetDatabase("GameApp");
-        collection = database.GetCollection<BsonDocument>("user");
+        dbPath = Path.Combine(Application.dataPath, "GameData/userInfo.db");
+        ReadDatabase();
+    }
 
-        // Åª¨ú¼Æ¾Ú
-        var filter = Builders<BsonDocument>.Filter.Empty;
-        var result = collection.Find(filter).ToList();
-        foreach (var doc in result)
+    void ReadDatabase()
+    {
+        if (!File.Exists(dbPath))
         {
-            Debug.Log($"ID: {doc["_id"]}, BulletCount: {doc["BulletCount"]}, SpreadAngle: {doc["SpreadAngle"]}");
+            Debug.LogError("Database file not found");
+            return;
+        }
+
+        string connectionString = $"Data Source={dbPath};Version=3;";
+        using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+        {
+            connection.Open();
+
+            string query = "SELECT * FROM player";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        float fireRate = reader.GetFloat(1);
+                        float SpreadAngle = reader.GetFloat(2);
+
+                        Debug.Log($"ID: {id}, Name: {fireRate}, Description: {SpreadAngle}");
+                    }
+                }
+            }
         }
     }
 }
-
-
