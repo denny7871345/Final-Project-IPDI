@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BuffDoor : Breakable
 {
+    public AudioSource getBuff;
     [SerializeField]
     public string buffName = "";
     //private float threshold = 30;
@@ -21,7 +22,7 @@ public class BuffDoor : Breakable
         healthBarPos = transform.position;
         healthBarPrefab.transform.position = healthBarPos;
         collider = GetComponent<Collider>();
-
+        getBuff=GetComponent<AudioSource>();
         
     }
 
