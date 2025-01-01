@@ -66,7 +66,67 @@ public class DatabaseManager
         }
     }
 
+<<<<<<< Updated upstream
     public playerInfo ReadSpecificData(int targetId)
+=======
+    void InsertData(float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+    {
+        if (!File.Exists(dbPath))
+        {
+            Debug.LogError("Database file not found");
+            return;
+        }
+
+        string connectionString = $"Data Source={dbPath};Version=3;";
+        using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+        {
+            connection.Open();
+
+            string query = "INSERT INTO player (Health, FireRate, BulletCount, SpreadAngle, BulletSpeed, BulletLifeTime, BulletDamage) " + 
+                "VALUES (@Health, @FireRate, @BulletCount, @SpreadAngle, @BulletSpeed, @BulletLifeTime, @BulletDamage)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@FireRate", fireRate);
+                command.Parameters.AddWithValue("@BulletCount", bulletCount);
+                command.Parameters.AddWithValue("@SpreadAngle", spreadAngle);
+                command.Parameters.AddWithValue("@BulletSpeed", bulletSpeed);
+                command.Parameters.AddWithValue("@BulletLifeTime", bulletLifeTime);
+                command.Parameters.AddWithValue("@BulletDamage", bulletDamage);
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    void UpdateData(float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
+    {
+        if (!File.Exists(dbPath))
+        {
+            Debug.LogError("Database file not found");
+            return;
+        }
+
+        string connectionString = $"Data Source={dbPath};Version=3;";
+        using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+        {
+            connection.Open();
+
+            string query = "INSERT INTO player (Health, FireRate, BulletCount, SpreadAngle, BulletSpeed, BulletLifeTime, BulletDamage) " +
+                "VALUES (@Health, @FireRate, @BulletCount, @SpreadAngle, @BulletSpeed, @BulletLifeTime, @BulletDamage)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@FireRate", fireRate);
+                command.Parameters.AddWithValue("@BulletCount", bulletCount);
+                command.Parameters.AddWithValue("@SpreadAngle", spreadAngle);
+                command.Parameters.AddWithValue("@BulletSpeed", bulletSpeed);
+                command.Parameters.AddWithValue("@BulletLifeTime", bulletLifeTime);
+                command.Parameters.AddWithValue("@BulletDamage", bulletDamage);
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    public playerInfo? ReadSpecificData(int targetId)
+>>>>>>> Stashed changes
     {
         if (!File.Exists(dbPath))
         {
