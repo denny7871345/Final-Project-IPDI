@@ -35,8 +35,7 @@ public class GameSystem : MonoBehaviour
         if (database != null)
         {
             Debug.Log("Found DatabaseManager!");
-            // ï¿½oï¿½Ì¥iï¿½Hï¿½Ï¥ï¿½ databaseManager ï¿½ï¿½ï¿½ï¿½Þ§@
-            // ï¿½oï¿½Ì¥iï¿½Hï¿½Ï¥ï¿½ databaseManager ï¿½ï¿½ï¿½ï¿½Þ§@
+            // ³o¸Ì¥i¥H¨Ï¥Î databaseManager °õ¦æ¾Þ§@
         }
         else
         {
