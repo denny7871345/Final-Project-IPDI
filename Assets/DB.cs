@@ -10,7 +10,8 @@ public class DatabaseManager:MonoBehaviour
     [SerializeField]
     public PlayerInfo playerInfo;
 
-
+    public int[] powerUp;
+    public int nowIndex;
     private void Awake()
     {
         // 確保物件在場景切換時不會被銷毀
@@ -258,7 +259,7 @@ public class DatabaseManager:MonoBehaviour
                         int skillPoint = (int)reader.GetFloat(7);
                         playerInfo = new PlayerInfo(health,bulletCount,fireRate,spreadAngle,bulletSpeed,bulletLifeTime,bulletDamage,skillPoint);
                         Debug.Log($"ID: {id}, Fire Rate: {fireRate},bulletCount: {bulletCount},Spread Angle: {spreadAngle}, bulletSpeed: {bulletSpeed}, bulletLifeTime: {bulletLifeTime}, bulletDamage:{bulletDamage}, skillPoint:{skillPoint}");
-
+                        nowIndex = targetId;
                         return playerInfo;
                     }
                     else

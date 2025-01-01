@@ -15,20 +15,13 @@ public class AdjustSet : MonoBehaviour
 
     void Start()
     {
-        plus.onClick.AddListener(AddLevel);
         plus.enabled = true;
         text.text = nowLevel.ToString();
     }
 
     private void Update()
-    {
-        text.text = "+" + nowLevel.ToString();
+    {    
         plus.enabled = true;
-    }
-
-    private void AddLevel()
-    {
-        nowLevel++;
     }
 
 }

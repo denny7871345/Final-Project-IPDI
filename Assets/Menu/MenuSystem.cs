@@ -18,7 +18,7 @@ public class MenuSystem : MonoBehaviour
     public Button[] storages;
 
     public Button[] powerup;
-
+    public TextMeshProUGUI[] powerUpText;
     public int[] powerUpTimes;
 
     public DatabaseManager database;
@@ -70,6 +70,11 @@ public class MenuSystem : MonoBehaviour
             status.text = database.PlayerInfoOutPut();
         }
 
+        for(int i = 0; i < powerUpText.Length; i++)
+        {
+            powerUpText[i].text = "+" + powerUpTimes[i].ToString();
+        }
+
     }
 
     private void ChooseThisStorage(int index)
@@ -93,6 +98,7 @@ public class MenuSystem : MonoBehaviour
         }
         else
         {
+            database.powerUp = powerUpTimes;
             SceneManager.LoadScene("Play"); // ¸ü¤J¹CÀ¸³õ´º
         }
     }
@@ -125,7 +131,13 @@ public class MenuSystem : MonoBehaviour
 
     private void AddPowerUp(int index)
     {
-        powerUpTimes[index]++;
+        if(database.playerInfo.skillPoint > 0)
+        {
+            powerUpTimes[index]++;
+            database.playerInfo.skillPoint--;
+            Debug.Log($"skill point is {database.playerInfo.skillPoint} left");
+        }
+        
     }
 }
 

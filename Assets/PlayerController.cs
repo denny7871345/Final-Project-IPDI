@@ -216,4 +216,16 @@ public class PlayerController : MonoBehaviour
         gunController.fireRate = _playerInfo.fireRate;
     }
 
+    public void GetBuffEntry(int[] buff)
+    {
+        gunController.GetBuff("fire rate",buff[0]);
+        gunController.GetBuff("bullet count", buff[1]);
+        gunController.GetBuff("spread angle", buff[2]);
+        gunController.GetBuff("bullet speed", buff[3]);
+        gunController.GetBuff("bullet life", buff[4]);
+        gunController.GetBuff("bullet damage", buff[5]);
+        
+       
+    }
+
 }

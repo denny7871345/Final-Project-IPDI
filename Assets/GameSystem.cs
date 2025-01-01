@@ -47,6 +47,8 @@ public class GameSystem : MonoBehaviour
         canvas = GetComponentInChildren<Canvas>();
         
         player.PlayerSet(database.playerInfo);
+        player.GetBuffEntry(database.powerUp);
+        database.UpdateData(database.nowIndex, database.playerInfo.health, database.playerInfo.fireRate, database.playerInfo.bulletCount, database.playerInfo.spreadAngle, database.playerInfo.bulletSpeed, database.playerInfo.bulletLifeTime, database.playerInfo.bulletDamage, (int)database.playerInfo.skillPoint);
     }
 
     private void Update()
