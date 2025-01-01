@@ -51,7 +51,7 @@ public class Breakable : MonoBehaviour
         }
 
         GoToState(STATE.DIE);
-        Invoke("DestroyObject", 1f);
+        Invoke("DestroyObject", 1.9f);
     }
 
     public float GetLife()

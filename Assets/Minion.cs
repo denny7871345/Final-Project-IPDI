@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class Minion : Breakable
 {
     public GameObject reward;
-
+    public AudioSource deadSound;
     private bool hasGenReward = false;
     private void Start()
     {
@@ -15,6 +16,7 @@ public class Minion : Breakable
         healthBarPos = transform.position + transform.up * 2.0f;
         healthBarPrefab.transform.position = healthBarPos;
         collider = GetComponent<Collider>();
+        deadSound = GetComponent<AudioSource>();
 
         if (anim != null)
         {
@@ -62,7 +64,9 @@ public class Minion : Breakable
             case STATE.DIE:
                 if (triggerEnter)
                 {
+                    
                     anim.SetTrigger("Die");
+                    deadSound.Play();
                     healthBar.enabled = false;
                     triggerEnter = false;
                     break;

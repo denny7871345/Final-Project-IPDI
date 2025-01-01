@@ -4,6 +4,7 @@ public class GunController : MonoBehaviour
 {
     public BulletController bulletPrefab;  // 子彈 Prefab
     public Transform muzzle;         // 槍口位置
+    public AudioSource fireSound;
     public float bulletForce = 500f; // 基本子彈推進力
 
     [Header("Bullet Settings")]
@@ -24,6 +25,7 @@ public class GunController : MonoBehaviour
             if (fireTimer >= fireRate)
             {
                 Fire(); // 呼叫 GunController 的 Fire 方法
+                fireSound.Play();//開火聲
                 fireTimer = 0f; // 重置計時器
             }
         }

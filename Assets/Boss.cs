@@ -6,6 +6,7 @@ public class Boss : Breakable
     //private float specialAttackTimer = 0f;
 
     public GameObject reward;
+    public AudioSource deadSound;
     private bool hasGenReward = false;
 
     private void Start()
@@ -17,7 +18,7 @@ public class Boss : Breakable
         healthBarPos = transform.position + transform.up * 2.0f;
         healthBarPrefab.transform.position = healthBarPos;
         collider = GetComponent<Collider>();
-
+        deadSound = GetComponent<AudioSource>();
         if (anim != null)
         {
             Debug.Log("anim good");
@@ -65,6 +66,7 @@ public class Boss : Breakable
                 if (triggerEnter)
                 {
                     anim.SetTrigger("Die");
+                    deadSound.Play();
                     healthBar.enabled = false;
                     triggerEnter = false;
                     break;
