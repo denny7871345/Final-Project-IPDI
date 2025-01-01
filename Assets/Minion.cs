@@ -63,6 +63,7 @@ public class Minion : Breakable
                 if (triggerEnter)
                 {
                     anim.SetTrigger("Die");
+                    healthBar.enabled = false;
                     triggerEnter = false;
                     break;
                 }

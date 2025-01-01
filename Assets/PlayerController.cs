@@ -168,8 +168,10 @@ public class PlayerController : MonoBehaviour
             Minion enemy = gameObject.GetComponent<Minion>();
             if (enemy != null)
             {
-                TakeDamage(enemy.GetLife());
+                int damage = (int)enemy.GetLife();
                 enemy.TakeDamage(health);
+                TakeDamage(damage);
+  
                 return; // 碰撞到目標後直接返回，避免執行後續代碼
             }
 
