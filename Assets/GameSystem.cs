@@ -36,6 +36,7 @@ public class GameSystem : MonoBehaviour
         {
             Debug.Log("Found DatabaseManager!");
             // �o�̥i�H�ϥ� databaseManager ����ާ@
+            // �o�̥i�H�ϥ� databaseManager ����ާ@
         }
         else
         {
@@ -45,8 +46,6 @@ public class GameSystem : MonoBehaviour
         wave = 0;
         state = STATE.IDEL;
         canvas = GetComponentInChildren<Canvas>();
-        DatabaseManager.PlayerInfo token = database.ReadSpecificData(1);
-        player.PlayerSet(token);
         
         player.PlayerSet(database.playerInfo);
     }
