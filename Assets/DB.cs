@@ -65,10 +65,6 @@ public class DatabaseManager
             }
         }
     }
-
-<<<<<<< Updated upstream
-    public playerInfo ReadSpecificData(int targetId)
-=======
     void InsertData(float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
     {
         if (!File.Exists(dbPath))
@@ -97,6 +93,8 @@ public class DatabaseManager
             }
         }
     }
+
+    
     void UpdateData(float fireRate, int bulletCount, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage)
     {
         if (!File.Exists(dbPath))
@@ -126,7 +124,6 @@ public class DatabaseManager
         }
     }
     public playerInfo? ReadSpecificData(int targetId)
->>>>>>> Stashed changes
     {
         if (!File.Exists(dbPath))
         {
