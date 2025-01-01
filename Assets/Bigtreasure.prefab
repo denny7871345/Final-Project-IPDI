@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1253737152878040002}
   - component: {fileID: 8756605017830069113}
   m_Layer: 0
-  m_Name: treasureBox
+  m_Name: Bigtreasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.0000612264, y: 0, z: 3.132574}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3500644888172487732}
   m_Father: {fileID: 0}
@@ -155,7 +155,8 @@ MonoBehaviour:
   healthBar: {fileID: 4079812993211757826}
   state: 0
   buffName: Unknow
-  randonRange: 5
+  randonRange: 10
+  transformUpRange: 2.5
   buffList:
   - fire rate
   - bullet speed
