@@ -123,7 +123,8 @@ public class DatabaseManager
             }
         }
     }
-    public playerInfo? ReadSpecificData(int targetId)
+
+    public playerInfo ReadSpecificData(int targetId)
     {
         if (!File.Exists(dbPath))
         {
