@@ -136,6 +136,60 @@ public class DatabaseManager
         }
     }
 
+    void UpdateData(string buffName,float value)
+    {
+        if (!File.Exists(dbPath))
+        {
+            Debug.LogError("Database file not found");
+            return;
+        }
+
+        string connectionString = $"Data Source={dbPath};Version=3;";
+        using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+        {
+            connection.Open();
+
+            string query = "UPDATE player SET " +
+                           "Health = @Health, " +
+                           "FireRate = @FireRate, " +
+                           "BulletCount = @BulletCount, " +
+                           "SpreadAngle = @SpreadAngle, " +
+                           "BulletSpeed = @BulletSpeed, " +
+                           "BulletLifeTime = @BulletLifeTime, " +
+                           "BulletDamage = @BulletDamage " +
+                           "WHERE ID = @ID;";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                // 添加參數
+                switch (buffName)
+                {
+                    case "health":
+                        command.Parameters.AddWithValue("@Health", value);
+                        break;
+                    case "fire rate":
+                        command.Parameters.AddWithValue("@FireRate", value);
+                        break;
+                    case "bullet count":
+                        command.Parameters.AddWithValue("@BulletCount", value);
+                        break;
+                    case "spread angle":
+                        command.Parameters.AddWithValue("@SpreadAngle", value);
+                        break;
+                    case "bullet speed":
+                        command.Parameters.AddWithValue("@BulletSpeed", value);
+                        break;
+                    case "bullet lifetime":
+                        command.Parameters.AddWithValue("@BulletLifeTime", value);
+                        break;
+                    case "bullet damage":
+                        command.Parameters.AddWithValue("@BulletDamage", value);
+                        break;
+                }
+                // 執行命令
+                command.ExecuteNonQuery();
+            }
+        }
+    }
 
     public playerInfo ReadSpecificData(int targetId)
     {
