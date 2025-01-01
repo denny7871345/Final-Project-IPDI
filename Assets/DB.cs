@@ -196,6 +196,18 @@ public class DatabaseManager:MonoBehaviour
         }
     }
 
+    public string PlayerInfoOutPut()
+    {
+        string text = $"Fire Rate: {playerInfo.fireRate},\n" +
+                $"Bullet Count: {playerInfo.bulletCount},\n" +
+                $"Spread Angle: {playerInfo.spreadAngle},\n" +
+                $"Bullet Speed: {playerInfo.bulletSpeed},\n" +
+                $"Bullet Life Time: {playerInfo.bulletLifeTime},\n" +
+                $"Bullet Damage: {playerInfo.bulletDamage}";
+        return (text);
+    }
+
+
     public PlayerInfo ReadSpecificData(int targetId)
     {
         if (!File.Exists(dbPath))
