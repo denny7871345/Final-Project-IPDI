@@ -137,7 +137,10 @@ public class DatabaseManager
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     public void UpdateData(int id ,string buffName,float value)
