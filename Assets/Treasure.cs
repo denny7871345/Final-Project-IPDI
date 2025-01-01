@@ -6,17 +6,18 @@ public class Treasure : Breakable
 {
     [SerializeField]
     public string buffName = "Unknow";
-
+    public int randonRange = 5;
+    public float transformUpRange = 2.0f;
     public List<string> buffList;
 
     private void Start()
     {
         buffName = RandomBuff();
         objName = "Treasure";
-        health = Random.Range(1, 5); ;
+        health = Random.Range(randonRange - 4, randonRange);
         healthBar.text = buffName + ValueText();
         transform.position = model.transform.position;
-        healthBarPos = transform.position + transform.up * 2.0f;
+        healthBarPos = transform.position + transform.up * transformUpRange;
         healthBarPrefab.transform.position = healthBarPos;
         collider = GetComponent<Collider>();
     }
@@ -25,7 +26,7 @@ public class Treasure : Breakable
     {
         if (healthBarPrefab != null)
         {
-            healthBarPos = transform.position + transform.up * 2.0f;
+            healthBarPos = transform.position + transform.up * transformUpRange;
             healthBar.text = buffName + ValueText();
             healthBar.transform.position = healthBarPos;
             healthBarPrefab.transform.rotation = Camera.main.transform.rotation; // ´Â¦V¬Û¾÷
