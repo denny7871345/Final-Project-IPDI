@@ -57,7 +57,7 @@ MonoBehaviour:
   healthBar: {fileID: 98493483358894633}
   state: 0
   specialAttackCooldown: 10
-  reward: {fileID: 3072601949658787683, guid: 1a0b360bf5e5fd8488bb3dad5207c2e2, type: 3}
+  reward: {fileID: 3072601949658787683, guid: 67faec75fb42ca243b3735e7048f2864, type: 3}
   gameSystem: {fileID: 0}
   deadSound: {fileID: 0}
 --- !u!65 &1841338803959650569
