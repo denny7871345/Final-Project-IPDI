@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameSystem : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GameSystem : MonoBehaviour
     public float waveRate = 5f;
     [SerializeField]
     private int wave;
-    private float waveTimer = 0f;       // ­p®É¾¹
+    private float waveTimer = 0f;       // ï¿½pï¿½É¾ï¿½
     [SerializeField]
     private STATE state;
     private Canvas canvas;
@@ -35,7 +36,7 @@ public class GameSystem : MonoBehaviour
         if (database != null)
         {
             Debug.Log("Found DatabaseManager!");
-            // ³o¸Ì¥i¥H¨Ï¥Î databaseManager °õ¦æ¾Þ§@
+            // ï¿½oï¿½Ì¥iï¿½Hï¿½Ï¥ï¿½ databaseManager ï¿½ï¿½ï¿½ï¿½Þ§@
         }
         else
         {
@@ -43,12 +44,14 @@ public class GameSystem : MonoBehaviour
         }
 
         wave = 0;
-        state = STATE.IDEL;
+        GoToState(STATE.IDEL);
         canvas = GetComponentInChildren<Canvas>();
         
         player.PlayerSet(database.playerInfo);
         player.GetBuffEntry(database.powerUp);
-        database.UpdateData(database.nowIndex, database.playerInfo.health, database.playerInfo.fireRate, database.playerInfo.bulletCount, database.playerInfo.spreadAngle, database.playerInfo.bulletSpeed, database.playerInfo.bulletLifeTime, database.playerInfo.bulletDamage, (int)database.playerInfo.skillPoint);
+        database.playerInfo = player.NowGunStatus(database.playerInfo.skillPoint);
+        Debug.Log("now data = " + database.PlayerInfoOutPut());
+        
     }
 
     private void Update()
@@ -60,7 +63,12 @@ public class GameSystem : MonoBehaviour
                 {
                     canvas.enabled = true;
                     triggerEnter = false;
-                    button.SetActive(false);
+                    if(button != null)
+                    {
+                        button.SetActive(false);
+                        Debug.Log("Button has been hide");
+                    }
+                    
                     break;
                 }
                 
@@ -97,10 +105,14 @@ public class GameSystem : MonoBehaviour
             case STATE.END:
                 if (triggerEnter)
                 {
-                    roadScroller.RoadWork(false);
                     canvas.enabled = true;
+                    roadScroller.RoadWork(false);
+                    TextMeshProUGUI text = canvas.GetComponentInChildren<TextMeshProUGUI>();
+                    text.text = "You Dead";
                     button.SetActive(true);
                     triggerEnter = false;
+                    database.UpdateData(database.nowIndex, database.playerInfo.health, database.playerInfo.fireRate, database.playerInfo.bulletCount, database.playerInfo.spreadAngle, database.playerInfo.bulletSpeed, database.playerInfo.bulletLifeTime, database.playerInfo.bulletDamage, (int)database.playerInfo.skillPoint);
+                    
                     break;
                 }
                 
@@ -119,8 +131,16 @@ public class GameSystem : MonoBehaviour
         triggerEnter = true;
     }
 
+    public void AddSkillPoint()
+    {
+        database.playerInfo.skillPoint++;
+        Debug.Log($"Now Skill Point is:{database.playerInfo.skillPoint}");
+    }
 
+    public void BackToMenu()
+    {
 
-
+        SceneManager.LoadScene("MainMenu");
+    }
 
 }

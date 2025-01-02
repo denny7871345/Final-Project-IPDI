@@ -228,4 +228,10 @@ public class PlayerController : MonoBehaviour
        
     }
 
+    public DatabaseManager.PlayerInfo NowGunStatus(int skillpoint)
+    {
+        DatabaseManager.PlayerInfo token = new DatabaseManager.PlayerInfo((int)health,gunController.bulletCount,gunController.fireRate,gunController.spreadAngle,gunController.bulletSpeed,gunController.bulletLifeTime,gunController.bulletDamage,skillpoint);
+        return token;
+    }
+
 }

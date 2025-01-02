@@ -7,6 +7,8 @@ public class DatabaseManager:MonoBehaviour
 {
     private string dbPath = Path.Combine(Application.dataPath, "GameData/userInfo.db");
 
+    private static DatabaseManager instance;
+
     [SerializeField]
     public PlayerInfo playerInfo;
 
@@ -14,7 +16,13 @@ public class DatabaseManager:MonoBehaviour
     public int nowIndex;
     private void Awake()
     {
-        // ½T«Oª«¥ó¦b³õ´º¤Á´«®É¤£·|³Q¾P·´
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        // ï¿½Tï¿½Oï¿½ï¿½ï¿½ï¿½bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¤ï¿½ï¿½|ï¿½Qï¿½Pï¿½ï¿½
+        instance = this;
         DontDestroyOnLoad(gameObject);
     }
     public struct PlayerInfo
@@ -22,12 +30,12 @@ public class DatabaseManager:MonoBehaviour
 
         public int health { get; set; }
         public float fireRate { get; set; }
-        public int bulletCount { get; set; }      // ¨C¦¸¶}¤õªº¤l¼u¼Æ¶q
-        public float spreadAngle { get; set; }  // ´²®gªºÁ`¨¤«× (¾A¥Î©ó¦h¤l¼u±¡ªp)
-        public float bulletSpeed { get; set; }    // ¤l¼u³t«×
-        public float bulletLifeTime { get; set; }    // ¤l¼u³t«×
-        public float bulletDamage { get; set; }    // ¤l¼u¶Ë®`
-        public float skillPoint { get; set; }    // §Þ¯àÂI
+        public int bulletCount { get; set; }      // ï¿½Cï¿½ï¿½ï¿½}ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½uï¿½Æ¶q
+        public float spreadAngle { get; set; }  // ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½ (ï¿½Aï¿½Î©ï¿½hï¿½lï¿½uï¿½ï¿½ï¿½p)
+        public float bulletSpeed { get; set; }    // ï¿½lï¿½uï¿½tï¿½ï¿½
+        public float bulletLifeTime { get; set; }    // ï¿½lï¿½uï¿½tï¿½ï¿½
+        public float bulletDamage { get; set; }    // ï¿½lï¿½uï¿½Ë®`
+        public int skillPoint { get; set; }    // ï¿½Þ¯ï¿½ï¿½I
         public PlayerInfo(int health, int bulletCount, float fireRate, float spreadAngle, float bulletSpeed, float bulletLifeTime, float bulletDamage,int skillPoint)
         {
             this.health = health;
@@ -130,12 +138,12 @@ public class DatabaseManager:MonoBehaviour
                            "SpreadAngle = @SpreadAngle, " +
                            "BulletSpeed = @BulletSpeed, " +
                            "BulletLifeTime = @BulletLifeTime, " +
-                           "BulletDamage = @BulletDamage " +
+                           "BulletDamage = @BulletDamage, " +
                            "SkillPoint = @SkillPoint " +
                            "WHERE ID = @ID;";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                // ²K¥[°Ñ¼Æ
+                // ï¿½Kï¿½[ï¿½Ñ¼ï¿½
                 command.Parameters.AddWithValue("@ID", id);
                 command.Parameters.AddWithValue("@Health", health);
                 command.Parameters.AddWithValue("@FireRate", fireRate);
@@ -146,7 +154,7 @@ public class DatabaseManager:MonoBehaviour
                 command.Parameters.AddWithValue("@BulletDamage", bulletDamage);
                 command.Parameters.AddWithValue("@SkillPoint", skillPoint);
 
-                // °õ¦æ©R¥O
+                // ï¿½ï¿½ï¿½ï¿½Rï¿½O
                 command.ExecuteNonQuery();
             }
         }
@@ -178,7 +186,7 @@ public class DatabaseManager:MonoBehaviour
                            "WHERE ID = @ID;";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                // ²K¥[°Ñ¼Æ
+                // ï¿½Kï¿½[ï¿½Ñ¼ï¿½
                 switch (buffName)
                 {
                     case "health":
@@ -206,7 +214,7 @@ public class DatabaseManager:MonoBehaviour
                         command.Parameters.AddWithValue("@SkillPoint", value);
                         break;
                 }
-                // °õ¦æ©R¥O
+                // ï¿½ï¿½ï¿½ï¿½Rï¿½O
                 command.ExecuteNonQuery();
             }
         }
@@ -241,7 +249,7 @@ public class DatabaseManager:MonoBehaviour
             string query = "SELECT * FROM player WHERE ID = @id";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                // ¨Ï¥Î°Ñ¼Æ¤Æ¬d¸ß¡AÁ×§K SQL Injection
+                // ï¿½Ï¥Î°Ñ¼Æ¤Æ¬dï¿½ß¡Aï¿½×§K SQL Injection
                 command.Parameters.AddWithValue("@id", targetId);
 
                 using (SQLiteDataReader reader = command.ExecuteReader())
@@ -256,7 +264,7 @@ public class DatabaseManager:MonoBehaviour
                         float bulletSpeed = reader.GetFloat(5);
                         float bulletLifeTime = reader.GetFloat(6);
                         float bulletDamage = reader.GetFloat(7);
-                        int skillPoint = (int)reader.GetFloat(7);
+                        int skillPoint = (int)reader.GetFloat(8);
                         playerInfo = new PlayerInfo(health,bulletCount,fireRate,spreadAngle,bulletSpeed,bulletLifeTime,bulletDamage,skillPoint);
                         Debug.Log($"ID: {id}, Fire Rate: {fireRate},bulletCount: {bulletCount},Spread Angle: {spreadAngle}, bulletSpeed: {bulletSpeed}, bulletLifeTime: {bulletLifeTime}, bulletDamage:{bulletDamage}, skillPoint:{skillPoint}");
                         nowIndex = targetId;

@@ -12,12 +12,12 @@ public class Breakable : MonoBehaviour
     }
 
     public GameObject model;
-    public string objName;       // ª«Åé¦WºÙ
-    public float health = 100f;      // ©Çª«¥Í©R­È
+    public string objName;       // ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½
+    public float health = 100f;      // ï¿½Çªï¿½ï¿½Í©Rï¿½ï¿½
     public float speed = 0.02f;
     
     
-    public GameObject healthBarPrefab; // ¦å¶q±øªº Prefab
+    public GameObject healthBarPrefab; // ï¿½ï¿½qï¿½ï¿½ï¿½ï¿½ Prefab
     [SerializeField]
     protected TextMeshProUGUI healthBar;
 
@@ -30,11 +30,11 @@ public class Breakable : MonoBehaviour
     protected bool triggerEnter = false;
 
 
-    // ³q¥Î¨ü¶ËÅÞ¿è
+    // ï¿½qï¿½Î¨ï¿½ï¿½ï¿½ï¿½Þ¿ï¿½
     public virtual void TakeDamage(float damage)
     {
         health -= damage;
-        //Debug.Log($"{monsterName} ¨ü¨ì {damage} ¶Ë®`¡A³Ñ¾l¥Í©R­È¡G{health}");
+        //Debug.Log($"{monsterName} ï¿½ï¿½ï¿½ï¿½ {damage} ï¿½Ë®`ï¿½Aï¿½Ñ¾lï¿½Í©Rï¿½È¡G{health}");
 
         if (health <= 0)
         {
@@ -42,7 +42,7 @@ public class Breakable : MonoBehaviour
         }
     }
 
-    // ³q¥Î¦º¤`ÅÞ¿è
+    // ï¿½qï¿½Î¦ï¿½ï¿½`ï¿½Þ¿ï¿½
     public virtual void Die()
     {        
         if (collider != null)
@@ -73,6 +73,6 @@ public class Breakable : MonoBehaviour
     void DestroyObject()
     {
         Destroy(gameObject);
-        Debug.Log("ª«Åé¤w³Q¾P·´");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½wï¿½Qï¿½Pï¿½ï¿½");
     }
 }

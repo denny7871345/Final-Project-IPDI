@@ -613,6 +613,11 @@ Transform:
   - {fileID: 310808895}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &601278759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8081488297690135763, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
+  m_PrefabInstance: {fileID: 7524310668884423305}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &637876648
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aef11273511eab4c97dfcdab54b22c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 993670254}
+  button: {fileID: 601278759}
   generateSystem: {fileID: 637876653}
   player: {fileID: 1822437772}
   roadScroller: {fileID: 637876654}
@@ -1191,11 +1196,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984613014}
   m_CullTransparentMesh: 1
---- !u!1 &993670254 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8081488297690135763, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
-  m_PrefabInstance: {fileID: 7524310668884423305}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &993670255 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4418149238242188171, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
@@ -1537,7 +1537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1122437833603193379, guid: 646dc2fe1dc61d2409950c75ecc0ea9e, type: 3}
       propertyPath: health
-      value: 200
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 1122437833603193379, guid: 646dc2fe1dc61d2409950c75ecc0ea9e, type: 3}
       propertyPath: range0
@@ -1609,7 +1609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2830275763409970120, guid: 646dc2fe1dc61d2409950c75ecc0ea9e, type: 3}
       propertyPath: fireRate
-      value: 0.7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2830275763409970120, guid: 646dc2fe1dc61d2409950c75ecc0ea9e, type: 3}
       propertyPath: isFiring
@@ -1621,7 +1621,7 @@ PrefabInstance:
       objectReference: {fileID: 27377167}
     - target: {fileID: 2830275763409970120, guid: 646dc2fe1dc61d2409950c75ecc0ea9e, type: 3}
       propertyPath: bulletCount
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2830275763409970120, guid: 646dc2fe1dc61d2409950c75ecc0ea9e, type: 3}
       propertyPath: bulletSpeed
@@ -1772,6 +1772,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 777248933}
     m_Modifications:
+    - target: {fileID: 3892901631403750039, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
+      propertyPath: m_text
+      value: Home
+      objectReference: {fileID: 0}
     - target: {fileID: 4418149238242188171, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1851,6 +1855,18 @@ PrefabInstance:
     - target: {fileID: 4418149238242188171, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191894602495425788, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 637876650}
+    - target: {fileID: 5191894602495425788, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191894602495425788, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameSystem, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8081488297690135763, guid: 856f4705b4df8c748a79dbebc8371898, type: 3}
       propertyPath: m_Name

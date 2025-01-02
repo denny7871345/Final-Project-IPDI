@@ -2,15 +2,29 @@ using UnityEngine;
 
 public class Boss : Breakable
 {
-    public float specialAttackCooldown = 10f; // ¯S®í§ðÀ»§N«o®É¶¡
+    public float specialAttackCooldown = 10f; // ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½oï¿½É¶ï¿½
     //private float specialAttackTimer = 0f;
 
     public GameObject reward;
+
+    public GameSystem gameSystem;
+
     public AudioSource deadSound;
     private bool hasGenReward = false;
 
     private void Start()
     {
+        gameSystem = FindObjectOfType<GameSystem>();
+        if (gameSystem != null)
+        {
+            Debug.Log("Found GameSystem!");
+            // ï¿½oï¿½Ì¥iï¿½Hï¿½Ï¥ï¿½ databaseManager ï¿½ï¿½ï¿½ï¿½Þ§@
+        }
+        else
+        {
+            Debug.LogError("GameSystem not found!");
+        }
+
         objName = "Boss";
         anim = model.GetComponent<Animator>();
         GoToState(STATE.IDLE);
@@ -32,13 +46,13 @@ public class Boss : Breakable
 
     protected void Update()
     {
-        // Åý¦å¶q±ø¸òÀH©Çª«¦ì¸m
+        // ï¿½ï¿½ï¿½ï¿½qï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½Çªï¿½ï¿½ï¿½m
         if (healthBarPrefab != null)
         {
             healthBarPos = transform.position + transform.up * 1.5f;
             healthBar.text = health.ToString();
             healthBar.transform.position = healthBarPos;
-            healthBarPrefab.transform.rotation = Camera.main.transform.rotation; // ´Â¦V¬Û¾÷
+            healthBarPrefab.transform.rotation = Camera.main.transform.rotation; // ï¿½Â¦Vï¿½Û¾ï¿½
         }
 
         switch (state)
@@ -84,8 +98,8 @@ public class Boss : Breakable
 
     public void SpecialAttack()
     {
-        Debug.Log($"{objName} ÄÀ©ñ¯S®í§Þ¯à¡A³y¦¨¥¨¶q¶Ë®`¡I");
-        // ²K¥[¯S®í§Þ¯àÅÞ¿è¡A¨Ò¦p½d³ò§ðÀ»©Î±j¤O§Þ¯à
+        Debug.Log($"{objName} ï¿½ï¿½ï¿½ï¿½Sï¿½ï¿½Þ¯ï¿½Aï¿½yï¿½ï¿½ï¿½ï¿½ï¿½qï¿½Ë®`ï¿½I");
+        // ï¿½Kï¿½[ï¿½Sï¿½ï¿½Þ¯ï¿½ï¿½Þ¿ï¿½Aï¿½Ò¦pï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±jï¿½Oï¿½Þ¯ï¿½
     }
 
     public override void LeaveBuff()
@@ -95,6 +109,7 @@ public class Boss : Breakable
         {
             if (!hasGenReward)
             {
+                gameSystem.AddSkillPoint();
                 Instantiate(reward, transform.position, Quaternion.identity);
                 hasGenReward = true;
             }

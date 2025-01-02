@@ -30,7 +30,18 @@ public class MenuSystem : MonoBehaviour
 
     void Start()
     {
-        UpdatePage();  // ªì©l¤ÆÅã¥Ü²Ä¤@­¶
+        database = FindObjectOfType<DatabaseManager>();
+        if (database != null)
+        {
+            Debug.Log("Found DatabaseManager!");
+            // ï¿½oï¿½Ì¥iï¿½Hï¿½Ï¥ï¿½ databaseManager ï¿½ï¿½ï¿½ï¿½Þ§@
+        }
+        else
+        {
+            Debug.LogError("DatabaseManager not found!");
+        }
+
+        UpdatePage();  // ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½Ü²Ä¤@ï¿½ï¿½
         
         foreach (Button token in next)
         {
@@ -44,13 +55,13 @@ public class MenuSystem : MonoBehaviour
 
         for (int i = 0; i < storages.Length; i++)
         {
-            int index = i; // ­«­n¡G®·Àò·í«e°j°éªº¯Á¤Þ­È
+            int index = i; // ï¿½ï¿½ï¿½nï¿½Gï¿½ï¿½ï¿½ï¿½ï¿½eï¿½jï¿½éªºï¿½ï¿½ï¿½Þ­ï¿½
             storages[i].onClick.AddListener(() => ChooseThisStorage(index));
         }
 
         for (int i = 0; i < powerup.Length; i++)
         {
-            int index = i; // ­«­n¡G®·Àò·í«e°j°éªº¯Á¤Þ­È
+            int index = i; // ï¿½ï¿½ï¿½nï¿½Gï¿½ï¿½ï¿½ï¿½ï¿½eï¿½jï¿½éªºï¿½ï¿½ï¿½Þ­ï¿½
             powerup[i].onClick.AddListener(() => AddPowerUp(index));
         }
 
@@ -62,7 +73,7 @@ public class MenuSystem : MonoBehaviour
     {
         for (int i = 0; i < pages.Length; i++)
         {
-            pages[i].SetActive(i == currentPageIndex);  // ¥uÅã¥Ü·í«e­¶­±
+            pages[i].SetActive(i == currentPageIndex);  // ï¿½uï¿½ï¿½Ü·ï¿½eï¿½ï¿½ï¿½ï¿½
         }
 
         if(currentStorage >= 0 && currentStorage <= 2)
@@ -99,11 +110,11 @@ public class MenuSystem : MonoBehaviour
         else
         {
             database.powerUp = powerUpTimes;
-            SceneManager.LoadScene("Play"); // ¸ü¤J¹CÀ¸³õ´º
+            SceneManager.LoadScene("Play"); // ï¿½ï¿½ï¿½Jï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    // ¤Á´«¨ì¤W¤@­¶
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½@ï¿½ï¿½
     private void PreviousPage()
     {
         if (currentPageIndex > 0)
@@ -113,16 +124,16 @@ public class MenuSystem : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("MainMenu"); // ¸ü¤J¹CÀ¸³õ´º
+            SceneManager.LoadScene("MainMenu"); // ï¿½ï¿½ï¿½Jï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    // §ó·s­¶­±Åã¥Ü
+    // ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private void UpdatePage()
     {
         for (int i = 0; i < pages.Length; i++)
         {
-            pages[i].SetActive(i == currentPageIndex);  // ¥uÅã¥Ü·í«e­¶­±
+            pages[i].SetActive(i == currentPageIndex);  // ï¿½uï¿½ï¿½Ü·ï¿½eï¿½ï¿½ï¿½ï¿½
         }
         currentStorage = 0;
         storageNext.enabled = false;
