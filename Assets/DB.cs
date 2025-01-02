@@ -5,7 +5,8 @@ using System.IO;
 
 public class DatabaseManager:MonoBehaviour
 {
-    private string dbPath = Path.Combine(Application.dataPath, "GameData/userInfo.db");
+    private string dbPath;
+    private string dbFileName = "userInfo.db";
 
     private static DatabaseManager instance;
 
@@ -24,7 +25,55 @@ public class DatabaseManager:MonoBehaviour
         // �T�O����b���������ɤ��|�Q�P��
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        dbPath = Path.Combine(Application.persistentDataPath, dbFileName);
+        InitializeDatabase();
+
     }
+
+    private void InitializeDatabase()
+    {
+        // 檢查資料庫檔案是否存在
+        if (!File.Exists(dbPath))
+        {
+            Debug.Log("Database not found. Creating a new one...");
+
+            // StreamingAssets 中的初始資料庫路徑
+            string sourcePath = Path.Combine(Application.streamingAssetsPath, dbFileName);
+
+            // 複製資料庫檔案到 persistentDataPath
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                // Android 的 StreamingAssets 需透過 WWW 或 UnityWebRequest 複製
+                using (var www = UnityEngine.Networking.UnityWebRequest.Get(sourcePath))
+                {
+                    www.SendWebRequest();
+                    while (!www.isDone) { }
+
+                    if (string.IsNullOrEmpty(www.error))
+                    {
+                        File.WriteAllBytes(dbPath, www.downloadHandler.data);
+                        Debug.Log("Database copied to persistentDataPath.");
+                    }
+                    else
+                    {
+                        Debug.LogError($"Failed to copy database: {www.error}");
+                    }
+                }
+            }
+            else
+            {
+                File.Copy(sourcePath, dbPath);
+                Debug.Log("Database copied to persistentDataPath.");
+            }
+        }
+        else
+        {
+            Debug.Log("Database found at " + dbPath);
+        }
+    }
+
+
     public struct PlayerInfo
     {
 
